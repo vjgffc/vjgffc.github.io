@@ -4,6 +4,9 @@ let animeSourceArray = [];
 let animeProductionArray = [];
 let animeReleaseArray = [];
 const ossBaseUrl = 'https://vjgffc-github-io.oss-cn-shenzhen.aliyuncs.com/';
+const localBaseUrl = '../../assets/';
+let animeContentFilesPath = ''; // 动态确定的配置文件路径
+let animeDir = ''; // 动态确定的动画目录路径
 const unknownProduction = "暂无信息";
 const unknownRealeaseDate = "暂未播出";
 const unknownName="暂无信息";
@@ -11,70 +14,83 @@ const unknownSource="未知";
 const itemsPerPage = 12;
 let totalPages = 1;
 
-const animeContentFilesPath = `${ossBaseUrl}anime/animeContentFiles.json`;
-const animeDir = `${ossBaseUrl}anime/`;
+// 检测并确定使用本地路径还是OSS路径
+async function initializeAnimePaths() {
+    try {
+        // 尝试访问本地路径下的配置文件
+        const testResponse = await fetch(`${localBaseUrl}anime/animeContentFiles.json`);
+        if (testResponse.ok) {
+            animeContentFilesPath = `${localBaseUrl}anime/animeContentFiles.json`;
+            animeDir = `${localBaseUrl}anime/`;
+            console.log('Using local paths:', { animeContentFilesPath, animeDir });
+            return true;
+        }
+    } catch (error) {
+        console.warn('Local path not accessible, falling back to OSS');
+    }
+    
+    // 如果本地路径不可访问，使用OSS路径
+    animeContentFilesPath = `${ossBaseUrl}anime/animeContentFiles.json`;
+    animeDir = `${ossBaseUrl}anime/`;
+    console.log('Using OSS paths:', { animeContentFilesPath, animeDir });
+    return false;
+}
 
 /*----------------------------------信息加载---开始------------------------------------------------ */
-function loadAnimeMsg() {
+async function loadAnimeMsg() {
+    // 先初始化路径
+    await initializeAnimePaths();
+    
     // 检查 sessionStorage 中是否有缓存的全部数据
     const cachedData = sessionStorage.getItem('animeInfoArray');
     if (cachedData) {
         animeInfoArray = JSON.parse(cachedData);
-        return Promise.resolve().then(() => {
-            console.log('Anime information loaded successfully from sessionStorage:', animeInfoArray);
-        });
+        console.log('Anime information loaded successfully from sessionStorage:', animeInfoArray);
+        return;
     }
 
     // 如果没有缓存的数据，则从服务器加载
-    return fetch(animeContentFilesPath)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch animeContentFiles.json: ${response.statusText}`);
+    try {
+        const response = await fetch(animeContentFilesPath);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch animeContentFiles.json: ${response.statusText}`);
+        }
+        const animeContentFiles = await response.json();
+        
+        const promises = Object.keys(animeContentFiles).map(async folderName => {
+            const folderPath = `${animeDir}${folderName}`;
+            const msgFilePath = `${folderPath}/msg.json`;
+            try {
+                const msgResponse = await fetch(msgFilePath);
+                if (!msgResponse.ok) {
+                    console.warn(`Failed to fetch ${msgFilePath}: ${msgResponse.statusText}`);
+                    return; // 跳过此动画
+                }
+                const msg = await msgResponse.json();
+                if (!msg) return; // 如果 msg 为 null，跳过
+
+                const animeInfo = {
+                    name: msg.name || unknownName,
+                    name_zh: msg.name_zh,
+                    source: msg.source || unknownSource,
+                    updateTime: parseInt(animeContentFiles[folderName], 10) || 0,
+                    release_date: (msg.seasons && msg.seasons.length > 0) ? msg.seasons.map(season => parseInt(season.release_date, 10) || 0) : [0],
+                    production: (msg.seasons && msg.seasons.length > 0) ? Array.from(new Set(msg.seasons.flatMap(season => season.production || [unknownProduction]))) : [unknownProduction],
+                    score: (msg.seasons && msg.seasons.length > 0) ? msg.seasons.map(season => season.score) : [0],
+                    url: folderPath // 添加文件夹路径
+                };
+                animeInfoArray.push(animeInfo);
+            } catch (error) {
+                console.error(`Error processing ${msgFilePath}:`, error);
             }
-            return response.json();
-        })
-        .then(animeContentFiles => {
-            const promises = Object.keys(animeContentFiles).map(folderName => {
-                const folderPath = `${animeDir}${folderName}`;
-                const msgFilePath = `${folderPath}/msg.json`;
-                return fetch(msgFilePath)
-                    .then(response => {
-                        if (!response.ok) {
-                            console.warn(`Failed to fetch ${msgFilePath}: ${response.statusText}`);
-                            return null; // 返回 null 以跳过此动画
-                        }
-                        return response.json();
-                    })
-                    .then(msg => {
-                        if (!msg) return; // 如果 msg 为 null，跳过
-
-                        const animeInfo = {
-                            name: msg.name || unknownName,
-                            name_zh: msg.name_zh,
-                            source: msg.source || unknownSource,
-                            updateTime: parseInt(animeContentFiles[folderName], 10) || 0,
-                            release_date: (msg.seasons && msg.seasons.length > 0) ? msg.seasons.map(season => parseInt(season.release_date, 10) || 0) : [0],
-                            production: (msg.seasons && msg.seasons.length > 0) ? Array.from(new Set(msg.seasons.flatMap(season => season.production || [unknownProduction]))) : [unknownProduction],
-                            score: (msg.seasons && msg.seasons.length > 0) ? msg.seasons.map(season => season.score) : [0],
-
-                            url: folderPath // 添加文件夹路径
-                        };
-                        animeInfoArray.push(animeInfo);
-                    })
-                    .catch(error => {
-                        console.error(`Error processing ${msgFilePath}:`, error);
-                    });
-            });
-
-            return Promise.all(promises);
-        })
-        .then(() => {
-            sessionStorage.setItem('animeInfoArray', JSON.stringify(animeInfoArray));
-            console.log('Anime information loaded successfully:', animeInfoArray);
-        })
-        .catch(error => {
-            console.error('Error loading anime information:', error);
         });
+
+        await Promise.all(promises);
+        sessionStorage.setItem('animeInfoArray', JSON.stringify(animeInfoArray));
+        console.log('Anime information loaded successfully:', animeInfoArray);
+    } catch (error) {
+        console.error('Error loading anime information:', error);
+    }
 }//加载全部信息
 function extractAndStoreSources() {
     // 检查 sessionStorage 中是否有缓存的 source 数组

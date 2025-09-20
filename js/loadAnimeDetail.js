@@ -1,10 +1,35 @@
-const animeDir = 'https://vjgffc-github-io.oss-cn-shenzhen.aliyuncs.com/anime/';
+const ossBaseUrl = 'https://vjgffc-github-io.oss-cn-shenzhen.aliyuncs.com/';
+const localBaseUrl = '../../assets/';
+let animeDir = ''; // 动态确定的动画目录路径
 const unknownProduction = "暂无信息";
 const unknownRealeaseDate = "暂未播出";
 const unknownName = "暂无信息";
 const unknownSource = "未知";
 
-function loadAnimeContent() {
+// 检测并确定使用本地路径还是OSS路径
+async function initializeAnimeDirPath() {
+    try {
+        // 尝试访问本地路径下的一个测试文件
+        const testResponse = await fetch(`${localBaseUrl}anime/animeContentFiles.json`);
+        if (testResponse.ok) {
+            animeDir = `${localBaseUrl}anime/`;
+            console.log('Using local path:', animeDir);
+            return true;
+        }
+    } catch (error) {
+        console.warn('Local path not accessible, falling back to OSS');
+    }
+    
+    // 如果本地路径不可访问，使用OSS路径
+    animeDir = `${ossBaseUrl}anime/`;
+    console.log('Using OSS path:', animeDir);
+    return false;
+}
+
+async function loadAnimeContent() {
+    // 先初始化路径
+    await initializeAnimeDirPath();
+    
     // 从 URL 参数中提取动画标识（文件夹名称）
     const urlParams = new URLSearchParams(window.location.search);
     const animeId = urlParams.get('id');
