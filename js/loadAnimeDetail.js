@@ -1,4 +1,4 @@
-const animeDir = '';
+const animeDir = 'https://vjgffc-github-io.oss-cn-shenzhen.aliyuncs.com/anime/';
 const unknownProduction = "暂无信息";
 const unknownRealeaseDate = "暂未播出";
 const unknownName = "暂无信息";
