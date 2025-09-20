@@ -1,0 +1,440 @@
+
+@import url('top-buttonStyle.css');
+@import url('headerStyle.css');
+@import url('backgroundStyle.css');
+/* @import url('welcomeboxStyle.css'); */
+@import url("footerStyle.css");
+
+#anime-detail>#content {
+    margin: 60px 0;
+    /* background-color: rgba(247, 177, 177, 1); */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(80vw, 1200px);
+    min-width: 600px;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 0;
+    align-items: stretch; /* 让所有子元素高度自动拉伸 */
+    width: 100%;
+    height: auto;
+    min-height: 800px;
+}
+
+
+#main-content>#main-content-aside{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    min-width: 150px;
+    height: auto;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    background-color:rgba(150, 107, 0, 0.8);
+    /* background-color: rgb(152, 0, 0); */
+    padding: 20px 0;
+    align-items: center;
+
+    margin:0;
+
+}
+
+
+#main-content>#main-content-aside>#img {
+    margin: 0 15px;
+  /*  position: relative;  为悬浮提示框设置定位上下文 */
+}
+
+#main-content>#main-content-aside>#img>a>img {
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+    cursor: pointer;
+    height: auto;
+}
+
+/* 悬浮提示框样式 */
+ /* #main-content>#main-content-aside>#img>a>img:hover::after {
+    content: "点击查看大图";
+   position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    pointer-events: none;  防止提示框影响鼠标事件 
+} */
+
+
+#main-content>#main-content-aside>#season-label-container{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* 使各项占满整个宽度 */
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 0;
+}
+
+
+#main-content > #main-content-aside > #season-label-container > .season-label {
+    position: relative;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    text-align: center;   /* 文字居中显示 */
+    white-space: normal;  /* 允许换行 */
+    cursor: pointer;
+    margin: 0;
+}
+
+/* 利用伪元素创建上下分隔线，宽度为80%，并居中显示 */
+#main-content > #main-content-aside > #season-label-container > .season-label::before,
+#main-content > #main-content-aside > #season-label-container > .season-label::after {
+    content: "";
+    position: absolute;
+    left: 10%;           /* 80%宽度时，左右各留10% */
+    width: 80%;
+    height: 0.5px;
+    background-color: rgba(122, 122, 122, 0.8);
+}
+#main-content > #main-content-aside > #season-label-container > .season-label:first-child::before,
+#main-content > #main-content-aside > #season-label-container > .season-label:last-child::after {
+    height: 1px;
+}
+
+#main-content > #main-content-aside > #season-label-container > .season-label::before {
+    top: 0;
+}
+
+#main-content > #main-content-aside > #season-label-container > .season-label::after {
+    bottom: 0;
+}
+
+/* 激活状态 */
+#main-content > #main-content-aside > #season-label-container > .season-label.active {
+    background-color: rgba(219, 180, 83, 0.8);
+    /* 左侧采用较小的圆角，形成内收效果 */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+
+
+#main-content>#main-content-main{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(219, 180, 83, 0.8);
+    width: 80%;
+    height: auto;
+    margin: 0;
+    padding: 20px 30px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+
+
+#main-content>#main-content-main>.season-content>.season-content-info>.season-info-list{
+    list-style: none;
+    /* background-color: rgba(255, 0, 123, 0.8); */
+    padding: 0;
+    margin: 0;
+    border-bottom: #820000 3px solid;
+}
+
+#main-content>#main-content-main>.season-content>.season-content-info>.season-info-list li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+    /*border-bottom: 1px solid rgba(0, 0, 0, 0.5);*/
+}
+
+#main-content>#main-content-main>.season-content>.season-content-info>.season-info-list li>.info-label{
+    font-weight: bold;
+    font-size: 18px;
+    color: #9900ff;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Markdown内容美化 */
+
+
+
+.season-content-main {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #2d1a00;
+    word-break: break-all;
+    padding: 10px 0 20px 0;
+}
+
+/* 视频容器样式 */
+.season-content-main .nctm {
+    max-width: 90%; /* 与图片保持一致的最大宽度 */
+    margin: 0.8em auto; /* 与图片保持一致的上下外边距和水平居中 */
+    border-radius: 8px; /* 添加圆角以美化 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 添加更柔和的阴影效果 */
+    overflow: hidden; /* 确保内部的iframe不会超出圆角范围 */
+    position: relative; /* 为内部iframe的绝对定位提供基准 */
+    /* 使用 aspect-ratio 属性保持16:9的宽高比 */
+    aspect-ratio: 16 / 9;
+}
+
+/* 容器内iframe的样式 */
+.season-content-main .nctm iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0; /* 移除iframe可能自带的边框 */
+}
+
+
+.season-content-main h1,
+.season-content-main h2,
+.season-content-main h3 {
+    text-align: center;
+}
+.season-content-main h4,
+.season-content-main h5,
+.season-content-main h6 {
+    text-align: left;
+}
+
+.season-content-main h1 {
+    font-size: 2.1em;
+    color: #820000;
+    border-top: 5px double #ca0303;
+    padding: 0.5em auto;
+    margin-bottom:0;
+}
+.season-content-main h2 {
+    font-size: 1.8em;
+    color: #91118e;
+    border-top: 5px solid #a5158b;
+    padding-top:0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.season-content-main h3 {
+    color: #490092;
+    padding-top: 0.5em;
+    padding-bottom: 0;
+    margin-top: 0.5em;
+    margin-bottom:0;
+    border-top: 3px dotted #4f14ff;
+    font-size: 1.5em;
+}
+.season-content-main h4 {
+    color: #0800ff;
+    font-size: 1.1em;
+    padding-top: 5px;
+    padding-bottom: 0;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    border-top: 1px dashed #261ff7;
+}
+.season-content-main h5 {
+    font-size: 1em;
+}
+.season-content-main h6 {
+    font-size: 0.9em;
+}
+
+/* 日期（time标签）样式美化 */
+.season-content-main time.edit {
+    display: block;
+    text-align: right;
+    font-size: 0.9em;
+    color: #000000a0;
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    letter-spacing: 0.03em;
+}
+
+.season-content-main p {
+    margin: 0;
+    padding:0;
+}
+
+.season-content-main ul,
+.season-content-main ol {
+    margin: 0.5em 2em;
+    padding: 0;
+}
+.season-content-main li {
+    margin: 0;
+}
+
+.season-content-main a {
+    color: #a141b9;;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.season-content-main a:hover {
+    color: #1dac94;
+}
+
+.season-content-main img {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 0.5em auto;
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.season-content-main blockquote {
+    background: #fffbe8;
+    color: #7c4a00;
+    margin: 1em 0;
+    padding: 0.7em 1em;
+    border-radius: 4px;
+    /* font-style: italic; */
+}
+
+/* 引言样式 */
+.season-content-main .quote-block {
+    background-color: #fffbe8;
+    padding: 0.8em 1em;
+    /*border-left: 8px solid #342dff;*/
+    font-style: normal; /* Override blockquote's italic style */
+    color:#746000;
+}
+
+.season-content-main .quote-body {
+    font-style: italic;
+    text-align: left;
+    margin-right:1em
+}
+
+.season-content-main .quote-source {
+    font-style: normal;
+    text-align: right;
+    margin-top: 0.5em;
+    margin-right: 0;
+}
+
+.season-content-main code {
+    background: #f6f2e8;
+    color: #b86b00;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.97em;
+}
+
+.season-content-main pre {
+    background: #f6f2e8;
+    color: #3a2a00;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1em 0;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.97em;
+}
+
+.season-content-main hr {
+    border: none;
+    border-top: 1px dashed #261ff7;
+    margin: 15px auto;
+}
+
+
+/* 角色名与头像样式 */
+.season-content-main .charater_major {
+    display: inline-flex;
+    align-items: flex-end;
+    position: relative;
+    cursor: pointer;
+    font-size: 1em;
+    vertical-align: -0.5em; /* 让文字略微上移 ，与下面一起修改*/
+}
+.season-content-main .charater_minor {
+    display: inline-flex;
+    align-items: flex-end;
+    position: relative;
+    cursor: pointer;
+    font-size: 1em;
+    vertical-align: -0.5em; /* 让文字略微上移 ，与下面一起修改*/
+}
+.season-content-main .charater_thumb {
+    height: 2.7em;
+    width: auto;
+    margin: 0 0.3em;
+    vertical-align: middle;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s;
+}
+.season-content-main .charater_minor .charater_thumb {
+    border-radius: 50%;
+}
+.season-content-main .charater_name {
+    position: relative;
+    top: 0em; /* 让文字略微上移，与上面一起修改 */
+    display: inline-block;
+
+}
+.season-content-main .charater_major .charater_name {
+   /* 统一黑色描边 */
+    text-shadow: 0 0 2px #000, 0 0 1px #000, 1px 1px 0 #000, -1px -1px 0 #000;
+}
+
+.season-content-main .charater_minor .charater_name {
+   /* 统一黑色描边 */
+    text-shadow: 0 0 2px #ffffff, 0 0 1px #ffffff, 1px 1px 0 #ffffff, -1px -1px 0 #ffffff;
+}
+
+
+/* 剧透黑幕样式 */
+.season-content-main spoiler, .season-content-main .spoiler {
+    background: #222;
+    color: #222;
+    border-radius: 3px;
+    padding: 0 0.4em;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    user-select: none;
+    box-shadow: 0 0 2px #0008;
+    /* 强制字体为常规文本，防止emoji高亮 */
+    font-family: inherit;
+    filter: blur(0.04em) brightness(0) grayscale(1);
+}
+.season-content-main spoiler:hover, .season-content-main .spoiler:hover {
+    color: #fff;
+    background: #444;
+    user-select: text;
+    filter: none;
+}
+

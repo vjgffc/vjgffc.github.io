@@ -1,0 +1,585 @@
+@import url('top-buttonStyle.css');
+@import url('headerStyle.css');
+@import url('backgroundStyle.css');
+@import url('welcomeboxStyle.css');
+@import url("footerStyle.css");
+
+#anime>#content {
+    /* background-color: rgba(247, 177, 177, 1); */
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(80vw, 1200px);
+}
+
+
+
+
+
+#anime>#content>#welcome-box h1 {
+    font-size: 30px;
+    color: brown;
+    margin: 0 0 max(2.5vh, 10px) 0;
+    text-align: center;
+}
+
+#anime>#content>#welcome-box p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 1vw;
+    margin-top: 0; /* 设置段落上间距 */
+    margin-bottom: 0; /* 设置段落下间距 */
+    text-indent: 2em;
+    text-align: left;
+}
+
+#anime>#content>#welcome-box ul {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 1vw;
+    margin-top: 0; /* 设置段落上间距 */
+    margin-bottom: 0; /* 设置段落下间距 */
+    text-align: left;
+}
+
+
+
+
+
+
+#anime-box {
+    background-color: rgba(255, 183, 0,0.8);
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 30px;
+    /* box-shadow: 0 0 20px 10px rgba(255, 183, 0, 1); */
+}
+
+
+
+
+
+
+#layout-button{
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-around;
+    background-color:transparent; 
+    height: 40px;
+    /* padding: 5px 0; */
+    position: relative;
+    border-top-left-radius: 30px; 
+    border-top-right-radius: 30px; 
+    /* z-index: 1; */
+}
+
+#layout-button > span {
+    cursor: pointer;
+    flex: 1; /* 使每个子元素均分父元素的宽度 */
+    padding: 0;
+    border: none;
+    transition: background-color 0.3s, color 0.3s; /* 添加过渡效果 */
+    text-align: center; 
+    box-sizing: border-box; 
+    position: relative; /* 使伪元素相对于按钮定位 */
+    display: flex; /* 使用 Flexbox 布局 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    font-size: 20px;
+}
+
+#layout-button > span:not(:first-child)::before {
+    left: 0;
+}
+#layout-button > span:not(:last-child)::after {
+    right: 0;
+}
+#layout-button > span:not(:last-child)::after,
+#layout-button > span:not(:first-child)::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 100%;
+    background-color: rgb(198, 198, 198); /* 分割线颜色 */
+}
+
+#layout-button > #layout-button-default{
+    border-top-left-radius: 30px;
+}
+
+#layout-button > #layout-button-comparison{
+    border-top-right-radius: 30px;
+}
+
+
+
+
+
+#anime-box-content{
+    /* background-color: aquamarine; */
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+/* 默认显示默认布局，隐藏对比布局 */
+#anime-layout-default {
+    display: block;
+}
+
+#anime-layout-comparison {
+    display: none;
+}
+
+
+
+
+
+
+.function-box{
+    /* background-color: aqua; */
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: max(8px,2vh);
+}
+
+#function-filter{
+    width: min(max(60%, 500px),60vw);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#function-filter>#function-search {
+    background-color: rgb(255, 255, 255);
+    border: 1.5px solid rgb(0, 0, 0);
+    width: 100%;
+    height: 35px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-top: max(2vh, 8px);
+}
+
+#function-filter>#function-search input {
+    height: 100%;
+    text-align: left;
+    margin: 0;
+    margin-left: 15px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    font-size: 20px;
+    background-color: transparent;
+    outline: none;
+    flex: 1;
+}
+
+#function-filter>#function-search button {
+    height: 100%;
+    width: 35px;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    border: 0;
+    border-radius: 0;
+    background-color: rgb(190, 190, 190); 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    color: rgb(71, 71, 71);
+    cursor: pointer;
+}
+
+#function-filter>#function-search button:active {
+    background-color: rgb(140, 140, 140); 
+    color: rgb(0, 0, 0)
+}/* 按下时颜色变深 */
+
+#function-filter>#filter-box {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* box-sizing: border-box;  */
+    /* padding: 10px; */
+    transition: height 0.5s ease-in-out;
+    background-color: #f9f9f9;
+    border-top:0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    /* border: 1px solid #ddd; */
+}
+
+#function-filter>#filter-box.open {
+    height: min(400px,80vh); /* 设置最大高度 */
+    /* box-sizing: border-box; 
+    padding: 10px; */
+    border: 1.5px solid rgb(0, 0, 0);
+    border-top:0;
+}
+
+#function-filter>#filter-box>.filter-category{
+    /* background-color: blue; */
+    text-align: center; 
+    box-sizing: border-box; 
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content:space-between;
+    padding: 10px 0;
+    /* justify-content: center;  */
+}
+
+#function-filter>#filter-box>.filter-category:not(:first-child)::before {
+    top: 0; 
+}
+#function-filter>#filter-box>.filter-category:not(:last-child)::after {
+    bottom: 0;
+}
+#function-filter>#filter-box>.filter-category:not(:last-child)::after,
+#function-filter>#filter-box>.filter-category:not(:first-child)::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color:rgba(173, 173, 173, 0.822) ;
+}
+
+#function-filter>#filter-box>#filter-category-source{
+    height: 50px;
+    margin: 15px;
+    margin-bottom: 0;
+    /* border-bottom:1px solid rgba(173, 173, 173, 0.763) ; */
+}
+#function-filter>#filter-box>#filter-category-release_date{
+    height: 126px;
+    margin: 0 15px;
+    /* border-bottom:1px solid rgba(173, 173, 173, 0.763) ;
+    border-top:1px solid rgba(173, 173, 173, 0.763) ; */
+}
+#function-filter>#filter-box>#filter-category-production{
+    height: 226px;
+    margin: 15px;
+    margin-top: 0;
+    /* border-top:1px solid rgba(173, 173, 173, 0.763) ; */
+}
+
+#function-filter>#filter-box>.filter-category>.filter-category-title{
+    font-size: 15px;
+    width: 10%;
+    color: #333;
+    padding: 10px;
+    /* background-color: aqua; */
+}
+
+#function-filter>#filter-box>.filter-category>.filter-category-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-content: space-between; */
+    gap: 8px;
+    width: calc(90% - 17px); 
+    padding: 0 15px;
+    max-height: 100%;
+    scrollbar-gutter: stable;
+    overflow-y: overlay;
+    /* background-color: #4CAF50; */
+}
+@supports not (scrollbar-gutter: stable) {
+    #function-filter>#filter-box>.filter-category>.filter-category-content {
+        width: 100%;
+        padding-right: 17px;
+    }
+}
+
+#function-filter>#filter-box>.filter-category>.filter-category-content>.filter-category-option{
+   
+    padding: 0 10px;
+    border-radius: 15px;
+    height: 26px;
+    min-width: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+#function-filter>#filter-box>.filter-category>#filter-category-content-production>.filter-category-option{
+    flex:auto;
+}
+
+#function-filter>#filter-box>.filter-category>.filter-category-content>.filter-category-option.selected {
+    background: #2196F3;
+    color: white;
+    border-color: transparent;
+}
+#function-filter>#filter-box>.filter-category>.filter-category-content>.filter-all-option {
+    background: #e0e0e0 !important;
+    border-color: #bbb !important;
+    font-weight: bold;
+}
+#function-filter>#filter-box>.filter-category>.filter-category-content>.filter-all-option.selected {
+    background: #4CAF50 !important;
+    border-color: #388E3C !important;
+    color: white !important;
+}
+
+
+
+
+
+
+
+#anime-sort-box {
+    /* background-color: royalblue; */
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#anime-sort-box > .anime-sort-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#anime-sort-box > .anime-sort-button > .anime-sort-button-text {
+    margin-right: 5px; /* 文字和箭头之间的间距 */
+    font-size: 16px; /* 文字字体大小 */
+    color: #999999; /* 初始文字颜色 */
+}
+
+#anime-sort-box > .anime-sort-button > .anime-sort-button-arrow {
+    display: flex;
+    flex-direction: column; /* 箭头上下排列 */
+}
+
+#anime-sort-box > .anime-sort-button > .anime-sort-button-arrow > .anime-sort-button-arrow-up {
+    font-size: 10px; /* 箭头字体大小 */
+    margin: 0px; /* 上箭头和下箭头之间的间距 */
+    color: #999; /* 初始箭头颜色 */
+}
+
+#anime-sort-box > .anime-sort-button > .anime-sort-button-arrow > .anime-sort-button-arrow-down {
+    font-size: 10px; /* 箭头字体大小 */
+    margin: 0px; /* 上箭头和下箭头之间的间距 */
+    color: #999; /* 初始箭头颜色 */
+}
+
+/* 降序状态 */
+#anime-sort-box > .anime-sort-button.sort-desc > .anime-sort-button-text,
+#anime-sort-box > .anime-sort-button.sort-desc > .anime-sort-button-arrow > .anime-sort-button-arrow-down {
+    color: #333; /* 深色 */
+}
+
+/* 升序状态 */
+#anime-sort-box > .anime-sort-button.sort-asc > .anime-sort-button-text,
+#anime-sort-box > .anime-sort-button.sort-asc > .anime-sort-button-arrow > .anime-sort-button-arrow-up {
+    color: #333; /* 深色 */
+}
+
+
+
+
+
+
+
+#animes-link{
+    /* background-color: rgb(255, 255, 255);  */
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    gap: 20px;
+}
+
+#animes-link > .no-content-warning {
+    width: 100%;
+    padding: 8px 20px;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    white-space: pre-line;
+}   
+
+#animes-link > .animes-link-item {
+    width: 220px; /* 设置宽度 */
+    /* background-color: rgb(167, 97, 97); */
+    margin:0 10px;
+    display: flex;
+    flex-direction: column; /* 竖直排列 */
+    align-items: center; /* 居中对齐 */
+    text-align: center;
+    justify-content: center;
+}
+
+#animes-link > .animes-link-item img {
+    /* background-color: rgb(255, 255, 255); */
+    display: block;
+    width: 200px;
+    /* height: 340px; */
+    object-fit: contain;
+    object-position: center;
+    cursor: pointer; /* 鼠标悬停时显示为指针 */
+    /* border-radius: 15px; */
+}
+
+/* #animes-link > .animes-link-item img::after {
+    content: attr(data-alt);
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+} */
+
+#animes-link > .animes-link-item>.anime-name{
+    height: 100px;
+}
+
+#animes-link > .animes-link-item>.anime-name>.anime-name-jp {
+    font-size: 15px;
+    font-family: '黑体', sans-serif;
+    color: rgb(105, 12, 255);
+
+    cursor: pointer;
+    margin: 5px 5px;
+    display: flex; /* 使用 flex 布局 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    text-align: center; /* 确保文字在换行后居中 */
+}
+
+#animes-link > .animes-link-item>.anime-name>.anime-name-zh {
+    margin:5px 5px 0;
+    font-size: 12px;
+    font-family:  '宋体', 'times new roman';
+    font-weight: bold;
+    cursor: pointer;
+    display: flex; /* 使用 flex 布局 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    text-align: center; /* 确保文字在换行后居中 */
+}
+
+/* #anime>#content>#anime-box>.anime-item {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+} */
+
+
+
+
+
+
+
+#function-page{
+    width: min(max(40%, 300px),60vw);
+    /* background-color: rgb(122, 5, 5); */
+    height: 35px;
+    display: flex;
+    flex-flow: row;
+    /* justify-content: space-between; */
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* #function2 > button {
+    height: 100%;
+    background: transparent;
+    border: 1.5px solid rgb(0, 0, 0);
+    border-radius: 3px;
+    font-size: 16px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+#function2 > button::after {
+    content: attr(data-tooltip); 
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background:transparent;
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    border: 0;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+#function2 > button:hover::after {
+    opacity: 1;
+} */
+
+#function-page>#pagination{
+    height: 100%;
+    display: flex; /* 使用 flex 布局 */
+    align-items: center; /* 垂直居中 */
+    gap: 6px;
+}
+
+#function-page>#pagination>button{
+    border: 0; 
+    background-color: transparent; 
+    width: 30px;
+    height:30px;
+    font-size: 25px;
+    cursor: pointer;
+    display: flex; /* 使用 flex 布局 */
+    align-items: center; /* 垂直居中 */
+}
+
+#function-page > #pagination > input {
+    background-color: rgb(255, 255, 255);
+    height: 25px;
+    width: 25px;
+    font-size: 16px;
+    text-align: center; /* 水平居中 */
+    border-radius: 0;
+}
+
+#function-page>#pagination>#total-pages{
+    font-size: 16px;
+}
+
+

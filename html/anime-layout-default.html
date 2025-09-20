@@ -1,0 +1,64 @@
+<article id="anime-layout-default">
+    <div class="function-box">
+        <div id="function-filter">
+            <div id="function-search">
+                <button class="filter-button" onclick="toggleFilterOptions()">☰</button>
+                <input type="text" id="search-input" placeholder="搜索动画" onkeydown="handleSearchInput(event)">
+                <button class="search-button" onclick="handleSearchButtonClick()">🔍︎</button>
+            </div>
+            <div id="filter-box">
+                <div class="filter-category" id="filter-category-source">
+                    <div class="filter-category-title" id="filter-category-title-source">作品类型</div>
+                    <div class="filter-category-content" id="filter-category-content-source"></div>
+                </div>
+                <div class="filter-category" id="filter-category-release_date">
+                    <div class="filter-category-title" id="filter-category-title-release_date">播出时间</div>
+                    <div class="filter-category-content" id="filter-category-content-release_date"></div>
+                </div>
+                <div class="filter-category" id="filter-category-production">
+                    <div class="filter-category-title" id="filter-category-title-production">制作公司</div>
+                    <div class="filter-category-content" id="filter-category-content-production"></div>
+                </div>
+            </div>
+        </div>
+        <div id="anime-sort-box">
+            <span id="anime-sort-updateTime" class="anime-sort-button" onclick="toggleSortOrder(id, 'updateTime')">
+                <span class="anime-sort-button-text">更新时间</span>
+                <span class="anime-sort-button-arrow">
+                    <span class="anime-sort-button-arrow-up">▲</span>
+                    <span class="anime-sort-button-arrow-down">▼</span>
+                </span>
+            </span>
+            <span id="anime-sort-release_date" class="anime-sort-button" onclick="toggleSortOrder(id, 'release_date')">
+                <span class="anime-sort-button-text">播出时间</span>
+                <span class="anime-sort-button-arrow">
+                    <span class="anime-sort-button-arrow-up">▲</span>
+                    <span class="anime-sort-button-arrow-down">▼</span>
+                </span>
+            </span>
+            <span id="anime-sort-score" class="anime-sort-button" onclick="toggleSortOrder(id, 'score')">
+                <span class="anime-sort-button-text">个人评分</span>
+                <span class="anime-sort-button-arrow">
+                    <span class="anime-sort-button-arrow-up">▲</span>
+                    <span class="anime-sort-button-arrow-down">▼</span>
+                </span>
+            </span>
+        </div>
+    </div>
+    <div id="animes-link"></div>
+    <div class="function-box">
+        <div id="function-page">
+            <!-- <button id="filter-button" onclick="showAlert()" data-tooltip="筛选">☰</button> -->
+            <span id="pagination">
+                <button id="first-page" onclick="goToPage(1)">≪</button>
+                <button id="prev-page" onclick="changePage(-1)">◁</button>
+                <input type="text" id="current-page" value="1" onkeydown="handlePageInput(event)">
+                <span>/</span>
+                <span id="total-pages"></span>
+                <button id="next-page" onclick="changePage(1)">▷</button>
+                <button id="last-page" onclick="goToPage(totalPages)">≫</button>
+            </span>
+            <!-- <button id="sort-button" onclick="showAlert()" data-tooltip="排序">⇅</button> -->
+        </div>
+    </div>
+</article>

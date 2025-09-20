@@ -1,0 +1,25 @@
+#footer {
+    /*    background-image: url('your-header-bg-url.jpg');*/
+    background: linear-gradient(to top,
+            rgba(0, 60, 255, 1) 0,
+            rgba(0, 60, 255, 0.7) 70%,
+            rgba(255, 255, 255, 0) 100%);
+    background-size: cover;
+    background-position: center;
+    height: 12vh;
+    width: 100%;
+    padding: 2vh 0 0 0;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 800px;
+}
+
+#footer>.copy-right {
+    margin-left: 30px;
+    font-family: '黑体', sans-serif;
+    color: rgb(72, 145, 255);
+    font-size: 20px;
+    margin: 5px 15px;
+}

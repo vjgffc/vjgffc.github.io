@@ -1,0 +1,103 @@
+@import url('top-buttonStyle.css');
+@import url('headerStyle.css');
+@import url('backgroundStyle.css');
+@import url('welcomeboxStyle.css');
+@import url("footerStyle.css");
+
+#novel>#content {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#novel>#content>.welcome-box h1 {
+    font-size: 25px;
+    margin: 0 0 max(2.5vw, 20px) 0;
+    text-align: center;
+    /* 标题居中 */
+}
+
+#novel>#content>.welcome-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 1vw;
+    text-indent: 2em;
+    /* 首行缩进2个中文字符 */
+    text-align: left;
+    /* 左端对齐 */
+}
+
+#novel>#content>.link-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#novel>#content>.link-box {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw;
+}
+
+#novel>#content>.link-box>.link-item {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#novel>#content>.link-box>.link-item>.link-image {
+    display: block;
+    width: 300px;
+    /* 指定图片的宽度 */
+    height: 390px;
+    /* 指定图片的高度 */
+    object-fit: cover;
+    /* 保持比例裁剪图片 */
+    object-position: center;
+    /* 以中间为基准裁剪 */
+    border-radius: 15px;
+    transition: filter 0.3s ease;
+}
+
+#novel>#content>.link-box>.link-item>.link-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* background: radial-gradient(circle,
+            rgba(111, 202, 255, 0.8) 0%,
+            rgba(111, 202, 255, 0.3) 30%,
+            rgba(111, 202, 255, 0) 100%); */
+    color: black;
+    text-shadow:
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff;
+    width: 100%;
+    height: 100%;
+    writing-mode: vertical-rl;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#novel>#content>.link-box>.link-item:hover .link-image {
+    filter: blur(5px);
+}
+
+#novel>#content>.link-box>.link-item:hover .link-text {
+    opacity: 1;
+}
+
