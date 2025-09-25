@@ -400,12 +400,41 @@
 .season-content-main .charater_minor .charater_thumb {
     border-radius: 50%;
 }
+/* 文字容器样式（仅用于有描述的角色） */
+.season-content-main .charater_text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 0.4em; /* 简单添加底部padding来调整位置 */
+}
+
+/* 描述样式 */
+.season-content-main .discription {
+    font-size: 0.8em;
+    color: #444;
+    text-shadow: 0 0 1px #fff, 0 0 1px #fff, 1px 1px 0 #fff, -1px -1px 0 #fff;
+    line-height: 1.0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.2em; /* 描述与名字之间的小间距 */
+}
+
+/* 角色名样式 - 兼容两种格式 */
 .season-content-main .charater_name {
     position: relative;
     top: 0em; /* 让文字略微上移，与上面一起修改 */
     display: inline-block;
-
+    margin: 0;
+    padding: 0;
 }
+
+/* 在文字容器内的角色名 - 保持与原来相同的基线位置 */
+.season-content-main .charater_text .charater_name {
+    line-height: 1.0;
+    /* 不添加任何额外的top偏移，保持原有基线 */
+}
+
 .season-content-main .charater_major .charater_name {
    /* 统一黑色描边 */
     text-shadow: 0 0 2px #000, 0 0 1px #000, 1px 1px 0 #000, -1px -1px 0 #000;
