@@ -411,13 +411,13 @@
 
 /* 描述样式 */
 .season-content-main .discription {
-    font-size: 0.8em;
+    font-size: 0.7em;
     color: #444;
-    text-shadow: 0 0 1px #fff, 0 0 1px #fff, 1px 1px 0 #fff, -1px -1px 0 #fff;
+    text-shadow: 0 0 0.5px #fff, 0 0 0.5px #fff, 0.5px 0.5px 0 #fff, -0.5px -0.5px 0 #fff;
     line-height: 1.0;
     margin: 0;
     padding: 0;
-    margin-bottom: 0.2em; /* 描述与名字之间的小间距 */
+    margin-bottom: 0.3em; /* 描述与名字之间的小间距 */
 }
 
 /* 角色名样式 - 兼容两种格式 */
@@ -438,6 +438,15 @@
 .season-content-main .charater_major .charater_name {
    /* 统一黑色描边 */
     text-shadow: 0 0 2px #000, 0 0 1px #000, 1px 1px 0 #000, -1px -1px 0 #000;
+}
+
+/* 声优信息样式 */
+.season-content-main .character_voice_actor {
+    font-size: 0.75em;
+    /* color: #ff0084; */
+    /* text-shadow: 0 0 0.3px #000000, 0 0 0.3px #000000, 0.3px 0.3px 0 #000000, -0.3px -0.3px 0 #000000; */
+    text-shadow: none;
+    line-height: 1.0;
 }
 
 .season-content-main .charater_minor .charater_name {
