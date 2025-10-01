@@ -9,8 +9,8 @@ let animeContentFilesPath = ''; // 动态确定的配置文件路径
 let animeDir = ''; // 动态确定的动画目录路径
 const unknownProduction = "暂无信息";
 const unknownRealeaseDate = "暂未播出";
-const unknownName="暂无信息";
-const unknownSource="未知";
+const unknownName = "暂无信息";
+const unknownSource = "未知";
 const itemsPerPage = 12;
 let totalPages = 1;
 
@@ -28,7 +28,7 @@ async function initializeAnimePaths() {
     } catch (error) {
         console.warn('Local path not accessible, falling back to OSS');
     }
-    
+
     // 如果本地路径不可访问，使用OSS路径
     animeContentFilesPath = `${ossBaseUrl}anime/animeContentFiles.json`;
     animeDir = `${ossBaseUrl}anime/`;
@@ -40,7 +40,7 @@ async function initializeAnimePaths() {
 async function loadAnimeMsg() {
     // 先初始化路径
     await initializeAnimePaths();
-    
+
     // 检查 sessionStorage 中是否有缓存的全部数据
     const cachedData = sessionStorage.getItem('animeInfoArray');
     if (cachedData) {
@@ -56,7 +56,7 @@ async function loadAnimeMsg() {
             throw new Error(`Failed to fetch animeContentFiles.json: ${response.statusText}`);
         }
         const animeContentFiles = await response.json();
-        
+
         const promises = Object.keys(animeContentFiles).map(async folderName => {
             const folderPath = `${animeDir}${folderName}`;
             const msgFilePath = `${folderPath}/msg.json`;
@@ -119,7 +119,7 @@ function extractAndStoreProductions() {
         // 按字符串排序
         animeProductionArray.sort((a, b) => {
             // 处理"未知"特殊排序
-            if (a === unknownProduction&& b !== unknownProduction) return 1;  // 把unknownProduction排到最后
+            if (a === unknownProduction && b !== unknownProduction) return 1;  // 把unknownProduction排到最后
             if (b === unknownProduction && a !== unknownProduction) return -1;
             return a.localeCompare(b); // 其他正常按字母排序
 
@@ -268,16 +268,16 @@ function getFilteredAnimeInfoArray(params = {}) {
 
     // 过滤数据
     filteredAnimeInfoArray = animeInfoArray.filter(anime => {
-            // 搜索过滤：匹配 anime.name 或 anime.name_zh
-            if (query) {
-                const nameMatch = anime.name && anime.name.toLowerCase().includes(query.toLowerCase());
-                const nameZhMatch = anime.name_zh && anime.name_zh.toLowerCase().includes(query.toLowerCase());
-                if (!nameMatch && !nameZhMatch) {
-                    return false;
-                }
+        // 搜索过滤：匹配 anime.name 或 anime.name_zh
+        if (query) {
+            const nameMatch = anime.name && anime.name.toLowerCase().includes(query.toLowerCase());
+            const nameZhMatch = anime.name_zh && anime.name_zh.toLowerCase().includes(query.toLowerCase());
+            if (!nameMatch && !nameZhMatch) {
+                return false;
             }
-        
-            // ... 其他过滤代码保持不变 ...
+        }
+
+        // ... 其他过滤代码保持不变 ...
         // source 过滤
         if (selectedSources.length) {
             if (!selectedSources.includes(anime.source)) {
@@ -455,7 +455,7 @@ function renderFilterOptions(containerId, options) {
     options.forEach((option, index) => {
         const optionElement = document.createElement('div');
         optionElement.className = 'filter-category-option';
-        optionElement.textContent = option === "0" ? unknownRealeaseDate: option;
+        optionElement.textContent = option === "0" ? unknownRealeaseDate : option;
         optionElement.dataset.value = option;
         // 保存索引用于URL参数映射
         optionElement.dataset.index = index;
@@ -485,7 +485,7 @@ function renderFilterOptions(containerId, options) {
                 const selectedIndexes = Array.from(selectedOptions).map(opt => opt.dataset.index);
                 updateURLParam(urlParamName, selectedIndexes.join(','));
             }
-            
+
             // 立即执行筛选功能
             applyFilters();
         });
@@ -501,17 +501,17 @@ function restoreFilterOptions() {
     const urlParams = getURLFilterParams();
     // 查找页面中所有的筛选容器，格式为 filter-category-content-xxx
     const containers = document.querySelectorAll('[id^="filter-category-content-"]');
-    
+
     containers.forEach(container => {
         // 根据容器ID获取对应的 URL 参数名，例如 "filter-category-content-production" 对应 production
         const paramName = container.id.replace('filter-category-content-', '');
         const paramValue = urlParams[paramName] || '';
-        
+
         // 清除该容器中所有选项的选中状态
         container.querySelectorAll('.filter-category-option').forEach(option => {
             option.classList.remove('selected');
         });
-        
+
         if (!paramValue) {
             // 如果对应参数为空，则恢复"全部"按钮选中状态
             const allOption = container.querySelector('.filter-all-option');
@@ -601,8 +601,23 @@ function sortAnimeInfoArray(key, order = 'asc') {
         }
 
         if (key === 'score') {
-            const aMax = Math.max(...aValue);
-            const bMax = Math.max(...bValue);
+            // 辅助函数：根据 IsFirstType 逻辑获取代表性分数
+            const getRepresentativeScore = (scores) => {
+                const firstTypeScores = scores.filter(s => s >= 2 && s <= 59);
+                const otherScores = scores.filter(s => s < 2 || s > 59);
+
+                if (firstTypeScores.length > 0) {
+                    return Math.max(...firstTypeScores);
+                }
+                if (otherScores.length > 0) {
+                    return Math.max(...otherScores);
+                }
+
+                return 0; // 如果没有分数，返回0
+            };
+
+            const aMax = getRepresentativeScore(aValue);
+            const bMax = getRepresentativeScore(bValue);
 
             const aIsFirstType = (aMax >= 2 && aMax <= 59);
             const bIsFirstType = (bMax >= 2 && bMax <= 59);
@@ -613,14 +628,14 @@ function sortAnimeInfoArray(key, order = 'asc') {
             if (!aIsFirstType && bIsFirstType) {
                 return order === 'asc' ? -1 : 1;
             }
-            if (aIsFirstType && bIsFirstType) {
+            // 对于同一类型的分数，直接比较
+            if (aMax !== bMax) {
                 return order === 'asc' ? aMax - bMax : bMax - aMax;
             }
-            if (aMax === bMax) {
-                if (a.updateTime !== b.updateTime) return b.updateTime - a.updateTime;
-                return a.name.localeCompare(b.name);
-            }
-            return order === 'asc' ? aMax - bMax : bMax - aMax;
+            // 分数相同，则按更新时间排序
+            if (a.updateTime !== b.updateTime) return b.updateTime - a.updateTime;
+            // 更新时间再相同，按名称排序
+            return a.name.localeCompare(b.name);
         }
 
         if (typeof aValue === 'string' && typeof bValue === 'string') {
@@ -636,14 +651,14 @@ function sortAnimeInfoArray(key, order = 'asc') {
 
 function restoreSortState() {
     const urlParams = new URLSearchParams(window.location.search);
-    const sortKey = urlParams.get('sortKey')||'updateTime';
-    const sortOrder = urlParams.get('sortOrder')||'desc';
+    const sortKey = urlParams.get('sortKey') || 'updateTime';
+    const sortOrder = urlParams.get('sortOrder') || 'desc';
 
     // if (!sortKey || !sortOrder) {
     //     sortKey = 'updateTime';
     //     sortOrder = 'desc';
     // }
-    
+
 
     if (sortKey && sortOrder) {
         const buttonId = `anime-sort-${sortKey}`;
@@ -778,7 +793,7 @@ function displayAnimeInfo(page = 1) {
             animesLinkDiv.appendChild(animeItemDiv);
         });
     }
-    
+
     restoreSortState();
     document.getElementById('current-page').addEventListener('blur', function () {
         const currentPage = parseInt(new URLSearchParams(window.location.search).get('page')) || 1;
