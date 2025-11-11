@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人博客</title>
-    <link rel="stylesheet" href="../css/homepageStyle.css">
+    <link rel="stylesheet" href="./css/homepageStyle.css">
     <script src="https://fastly.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="../js/setCustomUnits.js"></script>
-    <script src="../js/adjustButtonPosition.js"></script>
-    <script src="../js/loadComponent.js"></script>
-    <script src="../js/loadAnimePic.js"></script>
-    <script src="../js/loadWelcomeMsg.js"></script>
-    <script src="../js/return2top.js"></script>
+    <script src="./js/setCustomUnits.js"></script>
+    <script src="./js/adjustButtonPosition.js"></script>
+    <script src="./js/loadComponent.js"></script>
+    <script src="./js/loadContentPic.js"></script>
+    <script src="./js/loadWelcomeMsg.js"></script>
+    <script src="./js/return2top.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            loadComponent('header', '../html/header.html');
-            loadComponent('footer', '../html/footer.html');
-            //loadComponent('top-button', '../html/top-button.html');
+            loadComponent('header', './html/header.html');
+            loadComponent('footer', './html/footer.html');
+            //loadComponent('top-button', './html/top-button.html');
         });
 </script>
 </head>
@@ -30,11 +30,11 @@
         <br />
         <div class="link-box">
             <a href="anime/" target="_self" class="link-item" id="anime-link">
-                <img src="../pic/anime.jpg" alt="动画" class="link-image">
+                <img src="./pic/anime.jpg" alt="动画" class="link-image">
                 <span class="link-text">动&nbsp;&nbsp;&nbsp;画</span>
             </a>
             <a href="novel/" target="_self" class="link-item" id="novel-link">
-                <img src="../pic/novel.jpg" alt="推理小说" class="link-image">
+                <img src="./pic/novel.jpg" alt="推理小说" class="link-image">
                 <span class="link-text">小&nbsp;&nbsp;&nbsp;说</span>
             </a>
             <!-- <a href="novel.html" target="_self" class="link-item" id="novel-link">

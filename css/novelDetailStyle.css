@@ -1,0 +1,405 @@
+@import url('top-buttonStyle.css');
+@import url('headerStyle.css');
+@import url('backgroundStyle.css');
+@import url("footerStyle.css");
+
+#novel-detail>#content {
+    margin: 60px 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(80vw, 1200px);
+    min-width: 600px;
+}
+
+#novel-content-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    min-height: 800px;
+    border-radius: 20px;
+    background-color: rgba(219, 180, 83, 0.8);
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* 信息栏容器 */
+.novel-content-info {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    /* border-bottom: #820000 3px solid; */
+}
+
+/* 封面图样式 */
+.novel-cover {
+    flex-shrink: 0;
+    width: 150px;
+}
+
+.novel-cover img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* 信息列表样式 */
+.novel-info-list {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.novel-info-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.novel-info-list li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.novel-info-list li .info-label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #9900ff;
+    margin-right: 10px;
+}
+
+/* Markdown内容美化 */
+.novel-content-main {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #2d1a00;
+    word-break: break-all;
+    padding: 5px 0 20px 0;
+}
+
+/* 视频容器样式 */
+.novel-content-main .nctm {
+    max-width: 90%;
+    margin: 0.8em auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16 / 9;
+}
+
+.novel-content-main .nctm iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.novel-content-main h1,
+.novel-content-main h2,
+.novel-content-main h3 {
+    text-align: center;
+}
+
+.novel-content-main h4,
+.novel-content-main h5,
+.novel-content-main h6 {
+    text-align: left;
+}
+
+.novel-content-main h1 {
+    font-size: 2.1em;
+    color: #820000;
+    border-top: 5px double #ca0303;
+    padding: 0.5em auto;
+    margin-bottom: 0;
+}
+
+.novel-content-main h2 {
+    font-size: 1.8em;
+    color: #91118e;
+    border-top: 5px solid #a5158b;
+    padding-top: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.novel-content-main h3 {
+    color: #490092;
+    padding-top: 0.5em;
+    padding-bottom: 0;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    border-top: 3px dotted #4f14ff;
+    font-size: 1.5em;
+}
+
+.novel-content-main h4 {
+    color: #0800ff;
+    font-size: 1.1em;
+    padding-top: 5px;
+    padding-bottom: 0;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    border-top: 1px dashed #261ff7;
+}
+
+.novel-content-main h5 {
+    font-size: 1em;
+}
+
+.novel-content-main h6 {
+    font-size: 0.9em;
+}
+
+/* 日期（time标签）样式美化 */
+.novel-content-main time.edit {
+    display: block;
+    text-align: right;
+    font-size: 0.9em;
+    color: #000000a0;
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    letter-spacing: 0.03em;
+}
+
+.novel-content-main p {
+    margin: 0;
+    padding: 0;
+}
+
+.novel-content-main ul,
+.novel-content-main ol {
+    margin: 0.5em 2em;
+    padding: 0;
+}
+
+.novel-content-main li {
+    margin: 0;
+}
+
+.novel-content-main a {
+    color: #a141b9;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.novel-content-main a:hover {
+    color: #1dac94;
+}
+
+.novel-content-main img {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 0.5em auto;
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.novel-content-main blockquote {
+    background: #fffbe8;
+    color: #7c4a00;
+    margin: 1em 0;
+    padding: 0.7em 1em;
+    border-radius: 4px;
+}
+
+/* 引言样式 */
+.novel-content-main .quote-block {
+    background-color: #fffbe8;
+    padding: 0.8em 1em;
+    font-style: normal;
+    color: #746000;
+}
+
+.novel-content-main .quote-body {
+    font-style: italic;
+    text-align: left;
+    margin-right: 1em;
+}
+
+.novel-content-main .quote-source {
+    font-style: normal;
+    text-align: right;
+    margin-top: 0.5em;
+    margin-right: 0;
+}
+
+.novel-content-main code {
+    background: #f6f2e8;
+    color: #b86b00;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.97em;
+}
+
+.novel-content-main pre {
+    background: #f6f2e8;
+    color: #3a2a00;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1em 0;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.97em;
+}
+
+.novel-content-main hr {
+    border: none;
+    border-top: 1px dashed #261ff7;
+    margin: 15px auto;
+}
+
+/* 剧透黑幕样式 */
+.novel-content-main spoiler,
+.novel-content-main .spoiler {
+    background: #222;
+    color: #222;
+    border-radius: 3px;
+    padding: 0 0.4em;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    user-select: none;
+    box-shadow: 0 0 2px #0008;
+    font-family: inherit;
+    filter: blur(0.04em) brightness(0) grayscale(1);
+}
+
+.novel-content-main spoiler:hover,
+.novel-content-main .spoiler:hover {
+    color: #fff;
+    background: #444;
+    user-select: text;
+    filter: none;
+}
+
+/* 角色样式 */
+.novel-content-main .character {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    font-size: 1em;
+    vertical-align: 1.2em;
+    padding-bottom: 0.4em;
+}
+
+/* 描述样式 */
+.novel-content-main .description {
+    font-size: 0.7em;
+    color: #444;
+    line-height: 1.0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.3em;
+}
+
+/* 角色名样式 */
+.novel-content-main .character_name {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    line-height: 1.0;
+    text-shadow: 0 0 2px #fff, 0 0 1px #fff, 1px 1px 0 #fff, -1px -1px 0 #fff;
+}
+
+/* ========== Mermaid 图表样式 ========== */
+
+/* Mermaid 图表通用容器样式 - 渲染后的 .mermaid 元素 */
+.novel-content-main .mermaid {
+    background-color: rgba(255, 255, 255, 0.9);  /* 白色半透明背景 */
+    padding: 20px;                                /* 内边距 */
+    border-radius: 10px;                          /* 圆角 */
+    margin: 20px auto;                            /* 上下边距，水平居中 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);     /* 阴影效果 */
+    overflow-x: auto;                             /* 横向溢出时显示滚动条 */
+    max-width: 100%;                              /* 最大宽度不超过父容器 */
+}
+
+/* 外部甘特图文件容器 - HTML 中的 <div class="mermaid-gantt"> */
+.novel-content-main .mermaid-gantt {
+    display: block;                               /* 块级元素 */
+    margin: 30px auto;                            /* 上下边距，水平居中 */
+    width: 100%;                                  /* 宽度占满父容器 */
+}
+
+/* Gantt 图表专用样式 - 应用于甘特图的特殊背景和边框 */
+.novel-content-main .mermaid.gantt-chart,        /* JS 自动添加的 class */
+.novel-content-main .mermaid-gantt .mermaid {    /* 外部文件加载的甘特图 */
+    background-color: rgba(250, 248, 245, 0.95);  /* 米白色背景，更柔和 */
+    padding: 25px;                                /* 增加内边距，让图表更宽松 */
+    border: 2px solid rgba(130, 0, 0, 0.2);      /* 红色半透明边框 */
+}
+
+/* Mermaid SVG 基础样式 - 控制 SVG 图形的显示方式 */
+.novel-content-main .mermaid svg {
+    max-width: 100%;                              /* SVG 最大宽度不超过容器 */
+    height: auto;                                 /* 高度自动，保持宽高比 */
+    display: block;                               /* 块级元素，避免底部空白 */
+    margin: 0 auto;                               /* 水平居中 */
+}
+
+/* Gantt 图表分组背景色 - section0~3 是 Mermaid 自动生成的交替背景 */
+.novel-content-main .mermaid .section0,          /* 第1组人物的背景色 */
+.novel-content-main .mermaid .section1,          /* 第2组人物的背景色 */
+.novel-content-main .mermaid .section2,          /* 第3组人物的背景色 */
+.novel-content-main .mermaid .section3 {         /* 第4组人物的背景色（循环使用） */
+    fill: rgba(0, 255, 234, 0.1);                /* 青绿色半透明填充，区分不同人物行 */
+    min-height: 40px;                             /* Section 最小高度 40px */
+}
+
+/* Gantt 图表 section 行 - 每个人物的整行区域 */
+.novel-content-main .mermaid g.section {
+    min-height: 10px !important;                  /* 强制最小高度 */
+}
+
+/* Gantt 图表任务行 - 确保任务所在行有最小高度 */
+.novel-content-main .mermaid g.taskText,
+.novel-content-main .mermaid g.task {
+    min-height: 30px;                             /* 任务行最小高度 */
+}
+
+/* Gantt 图表网格线 - 时间轴上的竖线 */
+.novel-content-main .mermaid .grid .tick line {
+    stroke: rgba(112, 0, 0, 0.852);                /* 红色半透明网格线 */
+}
+
+/* Gantt 图表坐标轴文字 - 时间刻度的数字/文字 */
+.novel-content-main .mermaid .grid .tick text {
+    fill: #2d1a00;                                /* 深棕色文字，与页面主题一致 */
+    font-size: 12px;                              /* 字体大小 */
+}
+
+/* Gantt 图表任务条 - 每个活动/事件的横条 */
+.novel-content-main .mermaid .task {
+    stroke-width: 2;                              /* 任务条边框粗细 */
+}
+
+/* Gantt 图表 section 标签 - 左侧人物名称 */
+.novel-content-main .mermaid .sectionTitle {
+    fill: #c10000;                                /* 深红色文字，突出人物名 */
+    font-weight: bold;                            /* 加粗 */
+    font-size: 14px;                              /* 字体大小 */
+}
+
+/* Gantt 图表标题 - 顶部的图表总标题 */
+.novel-content-main .mermaid .titleText {
+    fill: #820000;                                /* 深红色文字，与主题一致 */
+    font-size: 20px;                              /* 更大的字体 */
+    font-weight: bold;                            /* 加粗 */
+}
