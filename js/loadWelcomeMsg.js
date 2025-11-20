@@ -6,8 +6,8 @@ const currentFolderName = pathArray[pathArray.length - 2]; // 获取倒数第二
 // 构建 readme.md 文件的路径
 const welcomePath = `../${currentFolderName}/readme.md`;
 
-    // 检查 localStorage 中是否有缓存的数据
-    const cachedData = localStorage.getItem(welcomePath);
+    // 检查 sessionStorage 中是否有缓存的数据
+    const cachedData = sessionStorage.getItem(welcomePath);
     if (cachedData) {
         document.getElementById('welcome-box').innerHTML = marked.parse(cachedData);
         return;
@@ -17,8 +17,8 @@ const welcomePath = `../${currentFolderName}/readme.md`;
     fetch(welcomePath)
         .then(response => response.text())
         .then(data => {
-            // 将加载的数据存储到 localStorage 中
-            localStorage.setItem(welcomePath, data);
+            // 将加载的数据存储到 sessionStorage 中
+            sessionStorage.setItem(welcomePath, data);
             document.getElementById('welcome-box').innerHTML = marked.parse(data);
         })
         .catch(error => console.error('Error loading welcome message:', error));
