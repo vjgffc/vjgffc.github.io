@@ -6,7 +6,9 @@ let animeReleaseArray = [];
 const ossBaseUrl = 'https://vjgffc-github-io.oss-cn-shenzhen.aliyuncs.com/';
 const localBaseUrl = '../../assets/';
 let animeContentFilesPath = ''; // 动态确定的配置文件路径
+let animeProductionFilesPath = ''; // 动态确定的制作公司映射文件路径
 let animeDir = ''; // 动态确定的动画目录路径
+let animeProductionMap = {}; // 代码 -> 公司名
 const unknownProduction = "暂无信息";
 const unknownRealeaseDate = "暂未播出";
 const unknownName = "暂无信息";
@@ -21,6 +23,7 @@ async function initializeAnimePaths() {
         const testResponse = await fetch(`${localBaseUrl}anime/animeContentFiles.json`);
         if (testResponse.ok) {
             animeContentFilesPath = `${localBaseUrl}anime/animeContentFiles.json`;
+            animeProductionFilesPath = `${localBaseUrl}anime/animeProductionFiles.json`;
             animeDir = `${localBaseUrl}anime/`;
             console.log('Using local paths:', { animeContentFilesPath, animeDir });
             return true;
@@ -31,15 +34,42 @@ async function initializeAnimePaths() {
 
     // 如果本地路径不可访问，使用OSS路径
     animeContentFilesPath = `${ossBaseUrl}anime/animeContentFiles.json`;
+    animeProductionFilesPath = `${ossBaseUrl}anime/animeProductionFiles.json`;
     animeDir = `${ossBaseUrl}anime/`;
     console.log('Using OSS paths:', { animeContentFilesPath, animeDir });
     return false;
+}
+
+function resolveProductionName(productionCode) {
+    const normalizedCode = String(productionCode || '').trim();
+    if (!normalizedCode) {
+        return '';
+    }
+
+    return animeProductionMap[normalizedCode] || normalizedCode;
+}
+
+async function loadProductionMap() {
+    try {
+        const response = await fetch(animeProductionFilesPath);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch animeProductionFiles.json: ${response.statusText}`);
+        }
+
+        const productionMap = await response.json();
+        animeProductionMap = (productionMap && typeof productionMap === 'object') ? productionMap : {};
+        console.log('Anime production map loaded successfully:', animeProductionMap);
+    } catch (error) {
+        animeProductionMap = {};
+        console.warn('Failed to load anime production map, falling back to raw production codes.', error);
+    }
 }
 
 /*----------------------------------信息加载---开始------------------------------------------------ */
 async function loadAnimeMsg() {
     // 先初始化路径
     await initializeAnimePaths();
+    await loadProductionMap();
 
     // 检查 sessionStorage 中是否有缓存的全部数据
     const cachedData = sessionStorage.getItem('animeInfoArray');
@@ -75,7 +105,13 @@ async function loadAnimeMsg() {
                     source: msg.source || unknownSource,
                     updateTime: parseInt(animeContentFiles[folderName], 10) || 0,
                     release_date: (msg.seasons && msg.seasons.length > 0) ? msg.seasons.map(season => parseInt(season.release_date, 10) || 0) : [0],
-                    production: (msg.seasons && msg.seasons.length > 0) ? Array.from(new Set(msg.seasons.flatMap(season => season.production || [unknownProduction]))) : [unknownProduction],
+                    production: (msg.seasons && msg.seasons.length > 0)
+                        ? Array.from(new Set(msg.seasons.flatMap(season => {
+                            const productions = Array.isArray(season.production) ? season.production : [];
+                            const resolvedProductions = productions.map(resolveProductionName).filter(Boolean);
+                            return resolvedProductions.length > 0 ? resolvedProductions : [unknownProduction];
+                        })))
+                        : [unknownProduction],
                     score: (msg.seasons && msg.seasons.length > 0) ? msg.seasons.map(season => season.score) : [0],
                     url: folderPath // 添加文件夹路径
                 };

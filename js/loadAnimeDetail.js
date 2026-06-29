@@ -1,6 +1,8 @@
 const ossBaseUrl = 'https://vjgffc-github-io.oss-cn-shenzhen.aliyuncs.com/';
 const localBaseUrl = '../../assets/';
 let animeDir = ''; // 动态确定的动画目录路径
+let animeProductionFilesPath = ''; // 动态确定的制作公司映射文件路径
+let animeProductionMap = {}; // 代码 -> 公司名
 const unknownProduction = "暂无信息";
 const unknownRealeaseDate = "暂未播出";
 const unknownName = "暂无信息";
@@ -13,6 +15,7 @@ async function initializeAnimeDirPath() {
         const testResponse = await fetch(`${localBaseUrl}anime/animeContentFiles.json`);
         if (testResponse.ok) {
             animeDir = `${localBaseUrl}anime/`;
+            animeProductionFilesPath = `${localBaseUrl}anime/animeProductionFiles.json`;
             console.log('Using local path:', animeDir);
             return true;
         }
@@ -22,13 +25,40 @@ async function initializeAnimeDirPath() {
     
     // 如果本地路径不可访问，使用OSS路径
     animeDir = `${ossBaseUrl}anime/`;
+    animeProductionFilesPath = `${ossBaseUrl}anime/animeProductionFiles.json`;
     console.log('Using OSS path:', animeDir);
     return false;
+}
+
+function resolveProductionName(productionCode) {
+    const normalizedCode = String(productionCode || '').trim();
+    if (!normalizedCode) {
+        return '';
+    }
+
+    return animeProductionMap[normalizedCode] || normalizedCode;
+}
+
+async function loadProductionMap() {
+    try {
+        const response = await fetch(animeProductionFilesPath);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch animeProductionFiles.json: ${response.statusText}`);
+        }
+
+        const productionMap = await response.json();
+        animeProductionMap = (productionMap && typeof productionMap === 'object') ? productionMap : {};
+        console.log('Anime production map loaded successfully:', animeProductionMap);
+    } catch (error) {
+        animeProductionMap = {};
+        console.warn('Failed to load anime production map, falling back to raw production codes.', error);
+    }
 }
 
 async function loadAnimeContent() {
     // 先初始化路径
     await initializeAnimeDirPath();
+    await loadProductionMap();
     
     // 从 URL 参数中提取动画标识（文件夹名称）
     const urlParams = new URLSearchParams(window.location.search);
@@ -120,7 +150,10 @@ async function loadAnimeContent() {
                     const infoDiv = document.createElement('div');
                     infoDiv.classList.add('season-content-info');
                     // 加载制作公司、播出时间以及个人评分
-                    let production = season.production ? season.production.join(', ') : unknownProduction;
+                    const productionNames = Array.isArray(season.production)
+                        ? season.production.map(resolveProductionName).filter(Boolean)
+                        : [];
+                    let production = productionNames.length > 0 ? productionNames.join(', ') : unknownProduction;
                     let releaseDate;
                     if (season.release_date) {
                         const year = season.release_date.toString().slice(0, 4);
