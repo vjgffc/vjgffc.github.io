@@ -4,6 +4,19 @@ let novelDir = ''; // 动态确定的小说目录路径
 const unknownAuthor = "暂无信息";
 const unknownName = "暂无信息";
 
+function formatScore(val) {
+    const n = Number(val);
+    if (!Number.isFinite(n)) return String(val);
+    if (n >= 2 && n <= 59) {
+        try {
+            return (BigInt(10) ** BigInt(Math.floor(n))).toString();
+        } catch (e) {
+            return `1e${Math.floor(n)}`;
+        }
+    }
+    return String(val);
+}
+
 // 初始化 Mermaid
 mermaid.initialize({ 
     startOnLoad: false,
@@ -130,8 +143,9 @@ async function loadNovelContent() {
             infoListDiv.classList.add('novel-info-list');
             
             let author = data.author || unknownAuthor;
-            let score = (typeof data.score !== 'undefined') ? data.score : 0;
-            
+            let scoreRaw = (typeof data.score !== 'undefined') ? data.score : 0;
+            const score = formatScore(scoreRaw);
+
             infoListDiv.innerHTML = `
                 <ul>
                     <li><span class="info-label">作者</span>${author}</li>

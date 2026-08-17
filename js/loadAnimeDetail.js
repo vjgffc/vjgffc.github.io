@@ -162,7 +162,8 @@ async function loadAnimeContent() {
                     } else {
                         releaseDate = unknownRealeaseDate;
                     }
-                    let score = (typeof season.score !== 'undefined') ? season.score : 0;
+                    let scoreRaw = (typeof season.score !== 'undefined') ? season.score : 0;
+                    const score = formatScore(scoreRaw);
                     infoDiv.innerHTML = `
                     <ul class="season-info-list">
                         <li><span class="info-label">制作公司</span>${production}</li>
@@ -344,4 +345,17 @@ function postProcessMainDiv(mainDiv, animeDir, animeId, seasonNumber) {
             timeEl.textContent = `Edited on ${year}/${month}/${day}`;
         }
     });
+}
+
+function formatScore(val) {
+    const n = Number(val);
+    if (!Number.isFinite(n)) return String(val);
+    if (n >= 2 && n <= 59) {
+        try {
+            return (BigInt(10) ** BigInt(Math.floor(n))).toString();
+        } catch (e) {
+            return `1e${Math.floor(n)}`;
+        }
+    }
+    return String(val);
 }
