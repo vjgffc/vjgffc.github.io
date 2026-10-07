@@ -8,11 +8,7 @@ function formatScore(val) {
     const n = Number(val);
     if (!Number.isFinite(n)) return String(val);
     if (n >= 2 && n <= 59) {
-        try {
-            return (BigInt(10) ** BigInt(Math.floor(n))).toString();
-        } catch (e) {
-            return `1e${Math.floor(n)}`;
-        }
+        return `<span class="score-value">10<sup>${Math.floor(n)}</sup></span>`;
     }
     return String(val);
 }

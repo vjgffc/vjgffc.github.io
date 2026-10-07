@@ -457,6 +457,79 @@
     /* border-radius: 15px; */
 }
 
+#animes-link .anime-cover {
+    /* 封面悬停效果：在这里调整颜色、字号、描边和模糊程度。 */
+    --cover-text-color: #fff8e8;
+    --cover-label-color: #ffe1a6;
+    --cover-font-size: 15px;
+    --cover-label-font-size: 12px;
+    --cover-stroke-color: #241529;
+    --cover-stroke-width: 0.6px;
+    --cover-blur: 5px;
+    position: relative;
+    display: block;
+    width: 200px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+#animes-link .anime-cover img {
+    transition: filter 0.3s ease;
+}
+
+#animes-link .anime-cover-details {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    align-items: stretch;
+    gap: 10px;
+    padding: 16px 12px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: var(--cover-font-size);
+    font-weight: bold;
+    line-height: 1.45;
+    color: var(--cover-text-color);
+    background: rgba(20, 12, 30, 0.28);
+    -webkit-text-stroke: var(--cover-stroke-width) var(--cover-stroke-color);
+    paint-order: stroke fill;
+    text-shadow: 0 1px 3px var(--cover-stroke-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#animes-link .anime-cover-label,
+#animes-link .anime-cover-value {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+#animes-link .anime-cover-label {
+    font-size: var(--cover-label-font-size);
+    color: var(--cover-label-color);
+}
+
+#animes-link .anime-cover-value sup {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+#animes-link .anime-cover:hover img,
+#animes-link .anime-cover:focus-visible img {
+    filter: blur(var(--cover-blur));
+}
+
+#animes-link .anime-cover:hover .anime-cover-details,
+#animes-link .anime-cover:focus-visible .anime-cover-details {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* #animes-link > .animes-link-item img::after {
     content: attr(data-alt);
     text-align: center;

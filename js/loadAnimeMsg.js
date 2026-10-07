@@ -768,6 +768,54 @@ function scrollToId(elementId) {
     }
 }//滚动到指定id
 
+function createAnimeCoverDetails(anime) {
+    const details = document.createElement('span');
+    details.className = 'anime-cover-details';
+    // 使用列表中整部动画的汇总数据，各数组元素分别显示一行。
+    const productions = anime.production?.length ? anime.production : [unknownProduction];
+    const releaseDates = anime.release_date?.length ? anime.release_date : [0];
+    const scores = anime.score?.length ? anime.score : [0];
+    // 与评分排序一致：指数评分优先，再取该类型的最高分。
+    const exponentScores = scores.filter(score => score >= 2 && score <= 59);
+    const otherScores = scores.filter(score => score < 2 || score > 59);
+    const highestScore = exponentScores.length
+        ? Math.max(...exponentScores)
+        : otherScores.length ? Math.max(...otherScores) : 0;
+    const fields = [
+        ['制作公司', productions],
+        ['播出时间', releaseDates.map(date => {
+            const releaseDate = date ? String(date) : '';
+            return releaseDate ? `${releaseDate.slice(0, 4)} 年 ${releaseDate.slice(4)} 月` : unknownRealeaseDate;
+        })],
+        ['个人评分', [highestScore]]
+    ];
+
+    fields.forEach(([label, values]) => {
+        const field = document.createElement('span');
+        field.className = 'anime-cover-field';
+        const labelEl = document.createElement('span');
+        labelEl.className = 'anime-cover-label';
+        labelEl.textContent = label;
+        field.appendChild(labelEl);
+        values.forEach(value => {
+            const valueEl = document.createElement('span');
+            valueEl.className = 'anime-cover-value';
+            const score = Number(value);
+            if (label === '个人评分' && Number.isFinite(score) && score >= 2 && score <= 59) {
+                valueEl.textContent = '10';
+                const exponent = document.createElement('sup');
+                exponent.textContent = String(Math.ceil(score));
+                valueEl.appendChild(exponent);
+            } else {
+                valueEl.textContent = String(value ?? 0);
+            }
+            field.appendChild(valueEl);
+        });
+        details.appendChild(field);
+    });
+    return details;
+}
+
 function displayAnimeInfo(page = 1) {
     console.log('Displaying page', page);
     const animesLinkDiv = document.getElementById('animes-link');
@@ -793,15 +841,19 @@ function displayAnimeInfo(page = 1) {
             const folderName = anime.url.split('/').pop();
             const detailUrl = `anime-detail.html?id=${folderName}`;
 
-            // 创建图片元素，并使其具备点击跳转功能
+            // 封面链接包住图片和详情，悬停时文字不会影响点击跳转。
+            const coverLink = document.createElement('a');
+            coverLink.className = 'anime-cover';
+            coverLink.href = detailUrl;
+            coverLink.target = '_blank';
+            coverLink.rel = 'noopener';
+            coverLink.setAttribute('aria-label', `${anime.name} 详情`);
             const img = document.createElement('img');
             img.src = `${anime.url}/visual.jpg`;
             img.alt = '暂无图片'; // 设置默认文字
 
-            img.addEventListener('click', function () {
-                window.open(detailUrl, "_blank");
-            });
-            animeItemDiv.appendChild(img);
+            coverLink.append(img, createAnimeCoverDetails(anime));
+            animeItemDiv.appendChild(coverLink);
 
             // 创建用于显示动画名称的容器
             const animeNameDiv = document.createElement('div');
