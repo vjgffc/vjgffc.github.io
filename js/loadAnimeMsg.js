@@ -401,7 +401,11 @@ function getURLFilterParams() {
 function performSearch(query) {
     // 更新 URL 参数以包含当前搜索查询
     const url = new URL(window.location);
-    url.searchParams.set('query', query);
+    if (query) {
+        url.searchParams.set('query', query);
+    } else {
+        url.searchParams.delete('query');
+    }
     window.history.pushState({}, '', url);
     console.log('Performing search:', query);
     applyFilters();
@@ -410,6 +414,13 @@ function performSearch(query) {
 function handleSearchButtonClick() {
     const searchInput = document.getElementById('search-input').value;
     performSearch(searchInput);
+}
+
+function clearAnimeSearch() {
+    const searchInput = document.getElementById('search-input');
+    searchInput.value = '';
+    performSearch('');
+    searchInput.focus();
 }
 
 function handleSearchInput(event) {
